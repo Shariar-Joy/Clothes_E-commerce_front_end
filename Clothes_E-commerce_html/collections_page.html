@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collections - Schluet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-brown: #8B5A2B;
+            --light-brown: #A0703C;
+            --cream: #F5F1ED;
+            --beige: #E8D5C4;
+            --dark-text: #2C2C2C;
+            --light-text: #6B6B6B;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-text);
+            line-height: 1.6;
+            background-color: var(--cream);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            background: rgba(245, 241, 237, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(139, 90, 43, 0.1);
+            transition: background 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--dark-text);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-text);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-brown);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-brown);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--primary-brown);
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-icons button {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            color: var(--dark-text);
+        }
+
+        .nav-icons button:hover {
+            transform: scale(1.1);
+            color: var(--primary-brown);
+        }
+
+        /* Main Content */
+        main {
+            padding-top: 8rem;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--beige) 100%);
+            padding: 4rem 0;
+            border-radius: 0 0 50px 50px;
+        }
+
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            color: var(--dark-text);
+            font-weight: 600;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--light-text);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section Toggle */
+        .section-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .toggle-btn {
+            padding: 1rem 2.5rem;
+            background: var(--white);
+            border: 2px solid var(--beige);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--dark-text);
+        }
+
+        .toggle-btn.active {
+            background: var(--primary-brown);
+            color: var(--white);
+            border-color: var(--primary-brown);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 90, 43, 0.3);
+        }
+
+        .toggle-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Collection Sections */
+        .collection-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .collection-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-text);
+        }
+
+        /* Product Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            height: 350px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        /* Image Zoom Effect on Hover */
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+
+        .product-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(139, 90, 43, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-card:hover .product-image::after {
+            opacity: 1;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--primary-brown);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            z-index: 10;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--dark-text);
+        }
+
+        .product-category {
+            color: var(--light-text);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary-brown);
+            margin-bottom: 1rem;
+        }
+
+        .product-price .original-price {
+            text-decoration: line-through;
+            color: var(--light-text);
+            font-size: 1rem;
+            margin-left: 0.5rem;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--beige);
+            border: none;
+            border-radius: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--dark-text);
+        }
+
+        .add-to-cart:hover {
+            background: var(--primary-brown);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* Product Detail Modal/Page Styles */
+        .product-detail {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            backdrop-filter: blur(10px);
+        }
+
+        .product-detail.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .product-detail-content {
+            background: var(--white);
+            border-radius: 20px;
+            max-width: 1000px;
+            width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--light-text);
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: var(--dark-text);
+        }
+
+        .product-detail-image {
+            width: 100%;
+            height: 500px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 15px;
+        }
+
+        .product-detail-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .product-detail-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--dark-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-detail-price {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--primary-brown);
+        }
+
+        .size-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .size-selector label {
+            font-weight: 500;
+            color: var(--dark-text);
+        }
+
+        .size-options {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .size-option {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid var(--beige);
+            border-radius: 10px;
+            background: var(--white);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .size-option:hover,
+        .size-option.selected {
+            border-color: var(--primary-brown);
+            background: var(--primary-brown);
+            color: var(--white);
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--beige);
+            border-radius: 10px;
+            background: var(--white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            border-color: var(--primary-brown);
+            color: var(--primary-brown);
+        }
+
+        .quantity-display {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid var(--beige);
+            border-radius: 10px;
+            font-weight: 500;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .product-description {
+            color: var(--light-text);
+            line-height: 1.8;
+        }
+
+        .detail-add-to-cart {
+            padding: 1.2rem 2rem;
+            background: var(--primary-brown);
+            color: var(--white);
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .detail-add-to-cart:hover {
+            background: var(--light-brown);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 90, 43, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-text);
+            color: var(--white);
+            padding: 4rem 0 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1.5rem;
+            color: var(--beige);
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--beige);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding-top: 2rem;
+            text-align: center;
+            color: #888;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .section-toggle {
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+
+            .toggle-btn {
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .product-detail-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+
+            .product-detail-image {
+                height: 300px;
+            }
+
+            .product-detail-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Loading animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">Schluet</a>
+            <ul class="nav-links">
+                <li><a href="home_page.html">Home</a></li>
+                <li><a href="collections_page.html" class="active">Collections</a></li>
+                <li><a href="discount_corner.html">Discount Corner</a></li>
+                <li><a href="about_us_page.html">About Us</a></li>
+            </ul>
+            <div class="nav-icons">
+                <div class="search-container">
+                    <input type="text" class="search-box" placeholder="Search products..." id="searchInput">
+                    <button class="search-btn" onclick="performSearch()">🔍</button>
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+                <a href="cart_page.html" class="nav-icon-btn" aria-label="Shopping cart">
+        🛍️
+                <span class="cart-badge" id="cartBadge">0</span>
+                </a>
+
+                <!-- Profile link -->
+                <a href="profile_page.html" class="nav-icon-btn" aria-label="User account">👤</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="page-header fade-in">
+            <div class="container">
+                <h1 class="page-title">Our Collections</h1>
+                <p class="page-subtitle">Discover our carefully curated selection of premium clothing for every style and occasion</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="section-toggle fade-in">
+                <button class="toggle-btn active" onclick="showSection('women')">Women's Collection</button>
+                <button class="toggle-btn" onclick="showSection('men')">Men's Collection</button>
+            </div>
+
+            <!-- Women's Collection -->
+            <section id="women-section" class="collection-section active">
+                <div class="section-header fade-in">
+                    <h2 class="section-title">Women's Collection</h2>
+                </div>
+                
+                <div class="products-grid">
+                    <div class="product-card fade-in" onclick="openProductDetail('silk-blouse')">
+                        <div class="product-image" style="background-image: url('Image/Silk\ Blouse.jpg')">
+                            <div class="product-badge">New</div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Silk Blouse</h3>
+                            <p class="product-category">Tops & Blouses</p>
+                            <div class="product-price">BDT 750</div>
+                            <button class="add-to-cart" onclick="event.stopPropagation()">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card fade-in" onclick="openProductDetail('elegant-blazer')">
+                        <div class="product-image" style="background-image: url('Image/Elegant\ Blazer.jpg')">
+                            <div class="product-badge">Popular</div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Elegant Blazer</h3>
+                            <p class="product-category">Blazers & Jackets</p>
+                            <div class="product-price">BDT 6000 <span class="original-price">BDT 10,000</span></div>
+                            <button class="add-to-cart" onclick="event.stopPropagation()">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card fade-in" onclick="openProductDetail('evening-dress')">
+                        <div class="product-image" style="background-image: url('Image/Evening\ Dress.webp')">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Evening Dress</h3>
+                            <p class="product-category">Dresses</p>
+                            <div class="product-price">BDT 9000</div>
+                            <button class="add-to-cart" onclick="event.stopPropagation()">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card fade-in" onclick="openProductDetail('cashmere-sweater')">
+                        <div class="product-image" style="background-image: url('Image/Cashmere\ Sweater.webp')">
+                            <div class="product-badge">Sale</div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Cashmere Sweater</h3>
+                            <p class="product-category">Sweaters & Knitwear</p>
+                            <div class="product-price">BDT 800 <span class="original-price">BDT 1200</span></div>
+                            <button class="add-to-cart" onclick="event.stopPropagation()">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card fade-in" onclick="openProductDetail('wide-leg-trousers')">
+                        <div class="product-image" style="background-image: url('Image/Wide\ Leg\ Trousers.webp')">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Wide Leg Trousers</h3>
+                            <p class="product-category">Pants & Trousers</p>
+                            <div class="product-price">BDT 950</div>
+                            <button class="add-to-cart" onclick="event.stopPropagation()">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card fade-in" onclick="openProductDetail('summer-midi-dress')">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                            <div class="product-badge">New</div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Summer Midi Dress</h3>
+                            <p class="product-category">Dresses</p>
+                            <div class="product-price">BDT 850</div>
+                            <button class="add-to-cart" onclick="event.stopPropagation()">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Men's Collection -->
+            <section id="men-section" class="collection-section">
+                <div class="section-header fade-in">
+                    <h2 class="section-title">Men's Collection</h2>
+                </div>
+                
+                <div class="products-grid">
+                    <div class="product-card fade-in" onclick="openProductDetail('classic-suit')">
+                        <div class="product-image" style="background-image: url('Image/Classic\ Suit.webp')">
+                            <div class="product-badge">New</div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Classic Suit</h3>
+                            <p class="product-category">Suits & Formal</p>
+                            <div class="product-price">BDT 12000</div>
+                            <button class="add-to-cart" onclick="event.stopPropagation()">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card fade-in" onclick="openProductDetail('oxford-shirt')">
+                        <div class="product-image" style="background-image: url('Image/Oxford\ Shirt.jpg')">
+                            <div class="product-badge">Popular</div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Oxford Shirt</h3>
+                            <p class="product-category">Shirts</p>
+                            <div class="product-price">BDT 550 <span class="original-price">BDT 750</span></div>
+                            <button class="add-to-cart" onclick="event.stopPropagation()">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card fade-in" onclick="openProductDetail('wool-coat')">
+                        <div class="product-image" style="background-image: url('Image/Wool\ Coat.webp')">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Wool Coat</h3>
+                            <p class="product-category">Coats & Jackets</p>
+                            <div class="product-price">BDT 5000</div>
+                            <button class="add-to-cart" onclick="event.stopPropagation()">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card fade-in" onclick="openProductDetail('denim-jacket')">
+                        <div class="product-image" style="background-image: url('Image/Denim\ Jacket.jpg')">
+                            <div class="product-badge">Sale</div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Denim Jacket</h3>
+                            <p class="product-category">Casual Wear</p>
+                            <div class="product-price">BDT 1200 <span class="original-price">BDT 2000</span></div>
+                            <button class="add-to-cart" onclick="event.stopPropagation()">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card fade-in" onclick="openProductDetail('chino-pants')">
+                        <div class="product-image" style="background-image: url('Image/Chino\ Pants.webp')">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Chino Pants</h3>
+                            <p class="product-category">Pants & Trousers</p>
+                            <div class="product-price">BDT 850</div>
+                            <button class="add-to-cart" onclick="event.stopPropagation()">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card fade-in" onclick="openProductDetail('knit-sweater')">
+                        <div class="product-image" style="background-image: url('Image/Knit\ Sweater.jpg')">
+                            <div class="product-badge">New</div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Knit Sweater</h3>
+                            <p class="product-category">Sweaters & Knitwear</p>
+                            <div class="product-price">BDT 1200</div>
+                            <button class="add-to-cart" onclick="event.stopPropagation()">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Product Detail Modal -->
+    <div class="product-detail" id="productDetail">
+        <div class="product-detail-content">
+            <button class="close-btn" onclick="closeProductDetail()">&times;</button>
+            <div class="product-detail-image" id="detailImage"></div>
+            <div class="product-detail-info">
+                <h1 class="product-detail-title" id="detailTitle"></h1>
+                <div class="product-detail-price" id="detailPrice"></div>
+                
+                <div class="size-selector">
+                    <label>Size</label>
+                    <div class="size-options">
+                        <div class="size-option" onclick="selectSize(this)">XS</div>
+                        <div class="size-option" onclick="selectSize(this)">S</div>
+                        <div class="size-option" onclick="selectSize(this)">M</div>
+                        <div class="size-option" onclick="selectSize(this)">L</div>
+                        <div class="size-option" onclick="selectSize(this)">XL</div>
+                    </div>
+                </div>
+
+                <div class="quantity-selector">
+                    <label>Quantity</label>
+                    <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+                    <div class="quantity-display" id="quantityDisplay">1</div>
+                    <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+                </div>
+
+                <div class="product-description" id="detailDescription"></div>
+
+                <div class="size-fit">
+                    <h4>Size Fit</h4>
+                    <p id="detailSizeFit"></p>
+                </div>
+
+                <div class="material-info">
+                    <h4>Material</h4>
+                    <p id="detailMaterial"></p>
+                </div>
+
+                <button class="detail-add-to-cart">ADD TO CART</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Schluet</h3>
+                    <p>Elevating style and embracing every story. Your premier destination for elegant fashion.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="#home">Home</a>
+                    <a href="#collections">Collections</a>
+                    <a href="#brands">Brands</a>
+                    <a href="#about">About Us</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Customer Care</h3>
+                    <a href="#">Size Guide</a>
+                    <a href="#">Shipping Info</a>
+                    <a href="#">Returns</a>
+                    <a href="#">Contact Us</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <a href="#">Instagram</a>
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Pinterest</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Schluet. All rights reserved. | <a href="#" style="color: #888;">Privacy Policy</a> | <a href="#" style="color: #888;">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Product data with detailed information
+        const productData = {
+            'silk-blouse': {
+                name: 'Silk Blouse',
+                category: 'Tops & Blouses',
+                price: 'BDT 750',
+                image: 'image/Silk Blouse.jpg',
+                description: 'Luxurious silk blouse crafted from 100% pure mulberry silk. Features elegant draping and a timeless silhouette perfect for both professional and casual settings.',
+                sizeFit: 'Length: 62cm, Bust: 96cm, Sleeve: 58cm. Regular fit with slight A-line silhouette.',
+                material: '100% Mulberry Silk'
+            },
+            'elegant-blazer': {
+                name: 'Elegant Blazer',
+                category: 'Blazers & Jackets',
+                price: 'BDT 1500',
+                originalPrice: 'BDT 1800',
+                image: 'image/Elegant Blazer.jpg',
+                description: 'Sophisticated blazer tailored for the modern woman. Features structured shoulders and a flattering fit that transitions seamlessly from day to night.',
+                sizeFit: 'Length: 68cm, Bust: 92cm, Sleeve: 60cm. Tailored fit with structured shoulders.',
+                material: '70% Wool, 30% Polyester blend'
+            },
+            'evening-dress': {
+                name: 'Evening Dress',
+                category: 'Dresses',
+                price: 'BDT 9000',
+                image: 'image/Evening Dress.webp',
+                description: 'Stunning evening dress designed for special occasions. Features flowing fabric and elegant details that create a timeless and sophisticated look.',
+                sizeFit: 'Length: 120cm, Bust: 88cm, Waist: 70cm. Flowing fit with cinched waist.',
+                material: '95% Polyester, 5% Elastane'
+            },
+            'cashmere-sweater': {
+                name: 'Cashmere Sweater',
+                category: 'Sweaters & Knitwear',
+                price: 'BDT 800',
+                originalPrice: 'BDT 1200',
+                image: 'image/Cashmere Sweater.webp',
+                description: 'Luxuriously soft cashmere sweater that provides warmth without bulk. Perfect for layering or wearing on its own during cooler months.',
+                sizeFit: 'Length: 60cm, Bust: 100cm, Sleeve: 56cm. Relaxed fit with ribbed details.',
+                material: '100% Pure Cashmere'
+            },
+            'wide-leg-trousers': {
+                name: 'Wide Leg Trousers',
+                category: 'Pants & Trousers',
+                price: 'BDT 950',
+                image: 'image/Wide Leg Trousers.webp',
+                description: 'Comfortable wide-leg trousers with a flattering high waist. Perfect for creating elegant silhouettes for both work and weekend wear.',
+                sizeFit: 'Length: 105cm, Waist: 70cm, Hip: 98cm. High-waisted with wide leg opening.',
+                material: '65% Polyester, 35% Viscose'
+            },
+            'summer-midi-dress': {
+                name: 'Summer Midi Dress',
+                category: 'Dresses',
+                price: 'BDT 850',
+                image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                description: 'Light and airy midi dress perfect for warm weather. Features a comfortable fit and breathable fabric that keeps you cool and stylish.',
+                sizeFit: 'Length: 110cm, Bust: 90cm, Waist: 76cm. Relaxed fit with midi length.',
+                material: '100% Cotton'
+            },
+            'classic-suit': {
+                name: 'Classic Suit',
+                category: 'Suits & Formal',
+                price: 'BDT 12000',
+                image: 'image/Classic Suit.webp',
+                description: 'Timeless two-piece suit crafted from premium wool. Features impeccable tailoring and classic styling for the discerning gentleman.',
+                sizeFit: 'Jacket Length: 72cm, Chest: 102cm, Trouser Length: 108cm. Tailored fit with classic proportions.',
+                material: '100% Pure Wool'
+            },
+            'oxford-shirt': {
+                name: 'Oxford Shirt',
+                category: 'Shirts',
+                price: 'BDT 550',
+                originalPrice: 'BDT 750',
+                image: 'image/Oxford Shirt.jpg',
+                description: 'Classic Oxford shirt made from premium cotton. Features traditional button-down collar and versatile styling for any occasion.',
+                sizeFit: 'Length: 75cm, Chest: 106cm, Sleeve: 63cm. Regular fit with traditional cut.',
+                material: '100% Cotton Oxford Weave'
+            },
+            'wool-coat': {
+                name: 'Wool Coat',
+                category: 'Coats & Jackets',
+                price: 'BDT 5000',
+                image: 'image/Wool Coat.webp',
+                description: 'Premium wool coat designed for cold weather protection without compromising style. Features classic tailoring and luxurious fabric.',
+                sizeFit: 'Length: 95cm, Chest: 108cm, Sleeve: 65cm. Regular fit with room for layering.',
+                material: '80% Wool, 20% Cashmere blend'
+            },
+            'denim-jacket': {
+                name: 'Denim Jacket',
+                category: 'Casual Wear',
+                price: 'BDT 1200',
+                originalPrice: 'BDT 2000',
+                image: 'image/Denim Jacket.jpg',
+                description: 'Classic denim jacket with vintage-inspired details. Perfect for layering and adding a casual touch to any outfit.',
+                sizeFit: 'Length: 65cm, Chest: 110cm, Sleeve: 62cm. Relaxed fit with classic denim styling.',
+                material: '100% Cotton Denim'
+            },
+            'chino-pants': {
+                name: 'Chino Pants',
+                category: 'Pants & Trousers',
+                price: 'BDT 850',
+                image: 'image/Chino Pants.webp',
+                description: 'Versatile chino pants that bridge the gap between casual and formal. Features a comfortable fit and timeless styling.',
+                sizeFit: 'Length: 105cm, Waist: 82cm, Hip: 104cm. Slim fit with tapered leg.',
+                material: '98% Cotton, 2% Elastane'
+            },
+            'knit-sweater': {
+                name: 'Knit Sweater',
+                category: 'Sweaters & Knitwear',
+                price: 'BDT 1200',
+                image: 'image/Knit Sweater.jpg',
+                description: 'Comfortable knit sweater perfect for layering or wearing alone. Features soft texture and classic styling for everyday wear.',
+                sizeFit: 'Length: 68cm, Chest: 104cm, Sleeve: 60cm. Regular fit with ribbed details.',
+                material: '70% Wool, 30% Acrylic blend'
+            }
+        };
+
+        let currentQuantity = 1;
+
+        function showSection(section) {
+            // Hide all sections
+            document.querySelectorAll('.collection-section').forEach(s => {
+                s.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(section + '-section').classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        function openProductDetail(productId) {
+            const product = productData[productId];
+            if (!product) return;
+
+            // Populate product detail modal
+            document.getElementById('detailImage').style.backgroundImage = `url('${product.image}')`;
+            document.getElementById('detailTitle').textContent = product.name;
+            
+            let priceHtml = product.price;
+            if (product.originalPrice) {
+                priceHtml += ` <span class="original-price" style="text-decoration: line-through; color: var(--light-text); font-size: 1.2rem; margin-left: 0.5rem;">${product.originalPrice}</span>`;
+            }
+            document.getElementById('detailPrice').innerHTML = priceHtml;
+            
+            document.getElementById('detailDescription').textContent = product.description;
+            document.getElementById('detailSizeFit').textContent = product.sizeFit;
+            document.getElementById('detailMaterial').textContent = product.material;
+
+            // Reset selections
+            document.querySelectorAll('.size-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            currentQuantity = 1;
+            document.getElementById('quantityDisplay').textContent = currentQuantity;
+
+            // Show modal
+            document.getElementById('productDetail').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProductDetail() {
+            document.getElementById('productDetail').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function selectSize(element) {
+            document.querySelectorAll('.size-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            element.classList.add('selected');
+        }
+
+        function changeQuantity(change) {
+            currentQuantity = Math.max(1, currentQuantity + change);
+            document.getElementById('quantityDisplay').textContent = currentQuantity;
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('productDetail').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeProductDetail();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeProductDetail();
+            }
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0.1s';
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements that should fade in
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(245, 241, 237, 0.98)';
+            } else {
+                header.style.background = 'rgba(245, 241, 237, 0.95)';
+            }
+        });
+
+        // Add to cart functionality
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.textContent = 'Added!';
+                this.style.background = 'var(--primary-brown)';
+                this.style.color = 'var(--white)';
+                
+                setTimeout(() => {
+                    this.textContent = 'Add to Cart';
+                    this.style.background = '';
+                    this.style.color = '';
+                }, 2000);
+            });
+        });
+
+        // Detail page add to cart
+        document.querySelector('.detail-add-to-cart').addEventListener('click', function() {
+            this.textContent = 'ADDED TO CART!';
+            this.style.background = '#4CAF50';
+            
+            setTimeout(() => {
+                this.textContent = 'ADD TO CART';
+                this.style.background = 'var(--primary-brown)';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

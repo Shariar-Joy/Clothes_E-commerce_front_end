@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schluet - Elevate Style, Embrace Story</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-brown: #8B5A2B;
+            --light-brown: #A0703C;
+            --cream: #F5F1ED;
+            --beige: #E8D5C4;
+            --dark-text: #2C2C2C;
+            --light-text: #6B6B6B;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-text);
+            line-height: 1.6;
+            background-color: var(--cream);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            background: rgba(245, 241, 237, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(139, 90, 43, 0.1);
+            transition: background 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--dark-text);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-text);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-brown);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-brown);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        /* Search Box */
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box {
+            width: 250px;
+            padding: 0.75rem 1rem;
+            padding-right: 2.5rem;
+            border: 2px solid var(--beige);
+            border-radius: 25px;
+            font-size: 0.9rem;
+            background: var(--white);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .search-box:focus {
+            border-color: var(--primary-brown);
+            box-shadow: 0 0 0 3px rgba(139, 90, 43, 0.1);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 8px;
+            background: none;
+            border: none;
+            color: var(--primary-brown);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: var(--beige);
+        }
+
+        .nav-icon-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            color: var(--dark-text);
+            padding: 0.5rem;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .nav-icon-btn:hover {
+            transform: scale(1.1);
+            color: var(--primary-brown);
+            background: rgba(139, 90, 43, 0.1);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--primary-brown);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        /* Search Results Dropdown */
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1001;
+            display: none;
+            margin-top: 5px;
+        }
+
+        .search-result-item {
+            padding: 1rem;
+            border-bottom: 1px solid var(--beige);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .search-result-item:hover {
+            background: var(--cream);
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 5rem;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--beige) 100%);
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 5vw, 5rem);
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            color: var(--dark-text);
+            font-weight: 600;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: var(--light-text);
+            margin-bottom: 3rem;
+            max-width: 500px;
+            line-height: 1.7;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--primary-brown);
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: var(--light-brown);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(139, 90, 43, 0.3);
+        }
+
+        .hero-image {
+            position: relative;
+            height: 600px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .hero-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .hero-accent {
+            position: absolute;
+            top: 20%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: var(--primary-brown);
+            border-radius: 50%;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        /* Collections Section */
+        .collections {
+            padding: 6rem 0;
+            background: var(--white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            margin-bottom: 1rem;
+            color: var(--dark-text);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--light-text);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .collections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .collection-card {
+            background: var(--cream);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .collection-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .collection-image {
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .collection-content {
+            padding: 2rem;
+        }
+
+        .collection-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-text);
+        }
+
+        .collection-content p {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+        }
+
+        .explore-btn {
+            color: var(--primary-brown);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+
+        .explore-btn:hover {
+            gap: 1rem;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 0;
+            background: var(--beige);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .feature-item {
+            padding: 2rem;
+            background: var(--white);
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-brown);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-text);
+            color: var(--white);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1.5rem;
+            color: var(--beige);
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--beige);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding-top: 2rem;
+            text-align: center;
+            color: #888;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .search-box {
+                width: 180px;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text p {
+                max-width: 100%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-image {
+                height: 400px;
+                order: -1;
+            }
+
+            .collections-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="home_page.html" class="logo">Schluet</a>
+            <ul class="nav-links">
+                <li><a href="home_page.html">Home</a></li>
+                <li><a href="collections_page.html">Collections</a></li>
+                <li><a href="discount_corner.html">Discount Corner</a></li>
+                <li><a href="about_us_page.html">About Us</a></li>
+            </ul>
+            <div class="nav-icons">
+                <div class="search-container">
+                    <input type="text" class="search-box" placeholder="Search products..." id="searchInput">
+                    <button class="search-btn" onclick="performSearch()">🔍</button>
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+                <a href="cart_page.html" class="nav-icon-btn" aria-label="Shopping cart">
+        🛍️
+                <span class="cart-badge" id="cartBadge">0</span>
+                </a>
+
+                <!-- Profile link -->
+                <a href="profile_page.html" class="nav-icon-btn" aria-label="User account">👤</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text fade-in">
+                        <h1>Elevate Style,<br>Embrace Story</h1>
+                        <p>We provide the largest clothing collection for any season. You can choose trendy or classy design according to your preferences. Our services are super fast and we update within 24 hours.</p>
+                        <a href="collections_page.html" class="cta-button">
+                            Explore
+                            <span>→</span>
+                        </a>
+                    </div>
+                    <div class="hero-image fade-in">
+                        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Elegant woman in cream suit">
+                        <div class="hero-accent"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="collections" class="collections">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2 class="section-title">Trending Collections</h2>
+                    <p class="section-subtitle">Discover our carefully curated collections that blend timeless elegance with contemporary fashion</p>
+                </div>
+                
+                <div class="collections-grid">
+                    <div class="collection-card fade-in">
+                        <div class="collection-image" style="background-image: url('Image/Summer-collection.jpg')"></div>
+                        <div class="collection-content">
+                            <h3>Summer Collections</h3>
+                            <p>Light, breezy fabrics and vibrant colors perfect for the warm season. Our summer collection offers comfort without compromising style.</p>
+                            <a href="summer_collection.html" class="explore-btn">Explore →</a>
+                        </div>
+                    </div>
+                    
+                    <div class="collection-card fade-in">
+                        <div class="collection-image" style="background-image: url('Image/Winter\ Collection.webp')"></div>
+                        <div class="collection-content">
+                            <h3>Winter Collections</h3>
+                            <p>Luxurious textures and rich tones to keep you warm and stylish. From cashmere to wool, experience ultimate comfort and elegance.</p>
+                            <a href="winter_collection.html" class="explore-btn">Explore →</a>
+                        </div>
+                    </div>
+                    
+                    <div class="collection-card fade-in">
+                        <div class="collection-image" style="background-image: url('Image/Evening\ Elegance.jpeg')"></div>
+                        <div class="collection-content">
+                            <h3>Evening Elegance</h3>
+                            <p>Sophisticated pieces for special occasions. Each garment is crafted to make you feel confident and radiant at any event.</p>
+                            <a href="evening_elegance.html" class="explore-btn">Explore →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2 class="section-title">Why Choose Schluet</h2>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-item fade-in">
+                        <div class="feature-icon">✨</div>
+                        <h3>Premium Quality</h3>
+                        <p>Only the finest fabrics and materials, carefully selected for durability and comfort.</p>
+                    </div>
+                    
+                    <div class="feature-item fade-in">
+                        <div class="feature-icon">🚚</div>
+                        <h3>Fast Delivery</h3>
+                        <p>Quick and reliable shipping with updates within 24 hours of your order.</p>
+                    </div>
+                    
+                    <div class="feature-item fade-in">
+                        <div class="feature-icon">👗</div>
+                        <h3>Latest Trends</h3>
+                        <p>Stay ahead of fashion with our constantly updated collections and trending styles.</p>
+                    </div>
+                    
+                    <div class="feature-item fade-in">
+                        <div class="feature-icon">💎</div>
+                        <h3>Exclusive Designs</h3>
+                        <p>Unique pieces you won't find anywhere else, crafted by our talented design team.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Schluet</h3>
+                    <p>Elevating style and embracing every story. Your premier destination for elegant fashion.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="#home">Home</a>
+                    <a href="#collections">Collections</a>
+                    <a href="#brands">Brands</a>
+                    <a href="#about">About Us</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Customer Care</h3>
+                    <a href="#">Size Guide</a>
+                    <a href="#">Shipping Info</a>
+                    <a href="#">Returns</a>
+                    <a href="#">Contact Us</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <a href="#">Instagram</a>
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Pinterest</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Schluet. All rights reserved. | <a href="#" style="color: #888;">Privacy Policy</a> | <a href="#" style="color: #888;">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Sample product data for search
+        const products = [
+            { name: "Summer Dress", category: "Summer Collections", price: "$89" },
+            { name: "Elegant Blouse", category: "Evening Elegance", price: "$125" },
+            { name: "Winter Coat", category: "Winter Collections", price: "$299" },
+            { name: "Casual Jeans", category: "Everyday Wear", price: "$79" },
+            { name: "Silk Scarf", category: "Accessories", price: "$45" },
+            { name: "Evening Gown", category: "Evening Elegance", price: "$399" },
+            { name: "Wool Sweater", category: "Winter Collections", price: "$149" },
+            { name: "Sundress", category: "Summer Collections", price: "$69" }
+        ];
+
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        updateCartBadge();
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase().trim();
+            
+            if (query.length === 0) {
+                searchResults.style.display = 'none';
+                return;
+            }
+
+            const filteredProducts = products.filter(product => 
+                product.name.toLowerCase().includes(query) || 
+                product.category.toLowerCase().includes(query)
+            );
+
+            displaySearchResults(filteredProducts);
+        });
+
+        function displaySearchResults(results) {
+            if (results.length === 0) {
+                searchResults.innerHTML = '<div class="search-result-item">No products found</div>';
+            } else {
+                searchResults.innerHTML = results.map(product => 
+                    `<div class="search-result-item" onclick="selectProduct('${product.name}')">
+                        <strong>${product.name}</strong><br>
+                        <small>${product.category} - ${product.price}</small>
+                    </div>`
+                ).join('');
+            }
+            searchResults.style.display = 'block';
+        }
+
+        function selectProduct(productName) {
+            searchInput.value = productName;
+            searchResults.style.display = 'none';
+            // Here you could redirect to product page
+            alert(`Selected: ${productName}`);
+        }
+
+        function performSearch() {
+            const query = searchInput.value.trim();
+            if (query) {
+                alert(`Searching for: ${query}`);
+                // Here you would typically redirect to a search results page
+            }
+        }
+
+        // Hide search results when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-container')) {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        // Cart functionality
+        function openCart() {
+            window.open('cart.html', '_blank');
+        }
+
+        function openProfile() {
+            window.open('profile.html', '_blank');
+        }
+
+        function updateCartBadge() {
+            document.getElementById('cartBadge').textContent = cartItems.length;
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0.1s';
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements that should fade in
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(245, 241, 237, 0.98)';
+            } else {
+                header.style.background = 'rgba(245, 241, 237, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>

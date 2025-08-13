@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evening Elegance Collection - Schluet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-brown: #8B5A2B;
+            --light-brown: #A0703C;
+            --cream: #F5F1ED;
+            --beige: #E8D5C4;
+            --dark-text: #2C2C2C;
+            --light-text: #6B6B6B;
+            --white: #FFFFFF;
+            --evening-accent: #8E24AA;
+            --evening-light: #F3E5F5;
+            --evening-dark: #4A148C;
+            --gold-accent: #FFD700;
+            --charcoal: #2C2C2C;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-text);
+            line-height: 1.6;
+            background: linear-gradient(135deg, var(--evening-light) 0%, var(--cream) 50%, #1A1A1A 100%);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            background: rgba(243, 229, 245, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(142, 36, 170, 0.2);
+            transition: background 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--dark-text);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-text);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--evening-accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--evening-accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--evening-accent);
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-icons button {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            color: var(--dark-text);
+        }
+
+        .nav-icons button:hover {
+            transform: scale(1.1);
+            color: var(--evening-accent);
+        }
+
+        /* Main Content */
+        main {
+            padding-top: 8rem;
+            min-height: 100vh;
+        }
+
+        .page-hero {
+            text-align: center;
+            margin-bottom: 5rem;
+            background: linear-gradient(135deg, var(--evening-light) 0%, var(--cream) 30%, #2C2C2C 100%);
+            padding: 5rem 0;
+            border-radius: 0 0 60px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '✨';
+            position: absolute;
+            top: 15%;
+            right: 10%;
+            font-size: 8rem;
+            color: var(--gold-accent);
+            opacity: 0.2;
+            z-index: 0;
+            animation: sparkle 4s ease-in-out infinite;
+        }
+
+        .page-hero::after {
+            content: '💎';
+            position: absolute;
+            bottom: 20%;
+            left: 15%;
+            font-size: 6rem;
+            color: var(--evening-accent);
+            opacity: 0.15;
+            z-index: 0;
+            animation: sparkle 6s ease-in-out infinite reverse;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: rotate(0deg) scale(1); opacity: 0.2; }
+            50% { transform: rotate(15deg) scale(1.1); opacity: 0.4; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.5rem, 6vw, 5rem);
+            margin-bottom: 1.5rem;
+            color: var(--white);
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--gold-accent) 0%, var(--evening-accent) 50%, var(--white) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .page-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+
+        .collection-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gold-accent);
+            display: block;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: linear-gradient(135deg, var(--white) 0%, var(--evening-light) 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+            box-shadow: 0 10px 30px rgba(142, 36, 170, 0.1);
+            border: 2px solid var(--evening-light);
+        }
+
+        .filter-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .filter-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--dark-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, var(--evening-light) 0%, var(--white) 100%);
+            border: 2px solid var(--evening-accent);
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--dark-text);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .filter-btn:hover::before {
+            left: 100%;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--evening-accent) 0%, var(--evening-dark) 100%);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(142, 36, 170, 0.3);
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin: 4rem 0;
+        }
+
+        .product-card {
+            background: linear-gradient(135deg, var(--white) 0%, var(--evening-light) 100%);
+            border-radius: 25px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            position: relative;
+            border: 1px solid var(--evening-light);
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(142, 36, 170, 0.2), 0 0 30px rgba(255, 215, 0, 0.1);
+            border-color: var(--gold-accent);
+        }
+
+        .product-image {
+            height: 380px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(142, 36, 170, 0.2), rgba(255, 215, 0, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-card:hover .product-image::after {
+            opacity: 1;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1.2rem;
+            left: 1.2rem;
+            background: var(--evening-accent);
+            color: var(--white);
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(142, 36, 170, 0.3);
+        }
+
+        .product-badge.sale {
+            background: linear-gradient(135deg, #FF5722, #FF9800);
+        }
+
+        .product-badge.new {
+            background: linear-gradient(135deg, #4CAF50, #8BC34A);
+        }
+
+        .product-badge.luxury {
+            background: linear-gradient(135deg, var(--gold-accent), #FFA000);
+        }
+
+        .product-badge.exclusive {
+            background: linear-gradient(135deg, var(--evening-dark), var(--evening-accent));
+        }
+
+        .product-info {
+            padding: 2rem;
+        }
+
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--dark-text);
+        }
+
+        .product-category {
+            color: var(--light-text);
+            font-size: 1rem;
+            margin-bottom: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .product-price {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--evening-accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .product-price .original-price {
+            text-decoration: line-through;
+            color: var(--light-text);
+            font-size: 1.1rem;
+            margin-left: 0.8rem;
+            font-weight: 400;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--evening-light) 0%, var(--cream) 100%);
+            border: 2px solid var(--evening-accent);
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--dark-text);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .add-to-cart::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .add-to-cart:hover::before {
+            left: 100%;
+        }
+
+        .add-to-cart:hover {
+            background: linear-gradient(135deg, var(--evening-accent) 0%, var(--evening-dark) 100%);
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(142, 36, 170, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark-text) 0%, var(--evening-dark) 100%);
+            color: var(--white);
+            padding: 4rem 0 2rem;
+            margin-top: 5rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--evening-accent), var(--gold-accent), var(--evening-accent));
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1.5rem;
+            color: var(--gold-accent);
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--evening-accent);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding-top: 2rem;
+            text-align: center;
+            color: #888;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 2rem;
+            }
+
+            .collection-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+                align-items: center;
+            }
+
+            .stat-item {
+                width: 200px;
+            }
+
+            .filter-buttons {
+                gap: 0.5rem;
+            }
+
+            .filter-btn {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .page-title {
+                font-size: 3rem;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-card {
+            animation-delay: 0.1s;
+        }
+
+        .product-card:nth-child(2) { animation-delay: 0.2s; }
+        .product-card:nth-child(3) { animation-delay: 0.3s; }
+        .product-card:nth-child(4) { animation-delay: 0.4s; }
+        .product-card:nth-child(5) { animation-delay: 0.5s; }
+        .product-card:nth-child(6) { animation-delay: 0.6s; }
+        .product-card:nth-child(7) { animation-delay: 0.7s; }
+        .product-card:nth-child(8) { animation-delay: 0.8s; }
+        .product-card:nth-child(9) { animation-delay: 0.9s; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="home_page.html" class="logo">Schluet</a>
+            <ul class="nav-links">
+                <li><a href="home_page.html">Home</a></li>
+                <li><a href="collections_page.html">Collections</a></li>
+                <li><a href="discount_corner.html">Discount Corner</a></li>
+                <li><a href="about_us_page.html">About Us</a></li>
+            </ul>
+            <div class="nav-icons">
+                <div class="search-container">
+                    <input type="text" class="search-box" placeholder="Search products..." id="searchInput">
+                    <button class="search-btn" onclick="performSearch()">🔍</button>
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+                <a href="cart_page.html" class="nav-icon-btn" aria-label="Shopping cart">
+        🛍️
+                <span class="cart-badge" id="cartBadge">0</span>
+                </a>
+
+                <!-- Profile link -->
+                <a href="profile_page.html" class="nav-icon-btn" aria-label="User account">👤</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="page-hero fade-in">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="page-title">Evening Elegance</h1>
+                    <p class="page-subtitle">Step into sophistication with our exquisite evening collection. From glamorous gowns to chic cocktail dresses, each piece is designed to make you the center of attention at any special occasion</p>
+                    
+                    <div class="collection-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">35+</span>
+                            <span class="stat-label">Elegant Pieces</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">8</span>
+                            <span class="stat-label">Categories</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">20%</span>
+                            <span class="stat-label">Exclusive Offer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="filter-section fade-in">
+                <div class="filter-header">
+                    <h2 class="filter-title">Browse by Occasion</h2>
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterProducts('all')">All Items</button>
+                    <button class="filter-btn" onclick="filterProducts('gowns')">Evening Gowns</button>
+                    <button class="filter-btn" onclick="filterProducts('cocktail')">Cocktail Dresses</button>
+                    <button class="filter-btn" onclick="filterProducts('formal')">Formal Wear</button>
+                    <button class="filter-btn" onclick="filterProducts('accessories')">Evening Accessories</button>
+                    <button class="filter-btn" onclick="filterProducts('shoes')">Evening Shoes</button>
+                </div>
+            </div>
+
+            <div class="products-grid" id="products-grid">
+                <div class="product-card fade-in" data-category="gowns">
+                    <div class="product-image" style="background-image: url('Image/Midnight\ Velvet\ Gown.jpg')">
+                        <div class="product-badge luxury">Luxury</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Midnight Velvet Gown</h3>
+                        <p class="product-category">Evening Gowns</p>
+                        <div class="product-price">BDT 1200</div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in" data-category="cocktail">
+                    <div class="product-image" style="background-image: url('Image/Sequined\ Cocktail\ Dress.webp')">
+                        <div class="product-badge new">New</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Sequined Cocktail Dress</h3>
+                        <p class="product-category">Cocktail Dresses</p>
+                        <div class="product-price">BDT 8000</div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in" data-category="gowns">
+                    <div class="product-image" style="background-image: url('Image/Silk\ Evening\ Gown.webp')">
+                        <div class="product-badge exclusive">Exclusive</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Silk Evening Gown</h3>
+                        <p class="product-category">Evening Gowns</p>
+                        <div class="product-price">BDT 18000</div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in" data-category="formal">
+                    <div class="product-image" style="background-image: url('Image/Formal\ Blazer\ Set.webp')">
+                        <div class="product-badge sale">Sale</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Formal Blazer Set</h3>
+                        <p class="product-category">Formal Wear</p>
+                        <div class="product-price">BDT 16000 <span class="original-price">BDT 22000</span></div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in" data-category="cocktail">
+                    <div class="product-image" style="background-image: url('Image/Lace\ Midi\ Dress.webp')">
+                        <div class="product-badge new">New</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Lace Midi Dress</h3>
+                        <p class="product-category">Cocktail Dresses</p>
+                        <div class="product-price">BDT 6000</div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in" data-category="accessories">
+                    <div class="product-image" style="background-image: url('Image/Pearl\ Statement\ Necklace.webp')">
+                        <div class="product-badge luxury">Luxury</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Pearl Statement Necklace</h3>
+                        <p class="product-category">Evening Accessories</p>
+                        <div class="product-price">BDT 4500</div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in" data-category="shoes">
+                    <div class="product-image" style="background-image: url('Image/Crystal\ Heels.jpg')">
+                        <div class="product-badge exclusive">Exclusive</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Crystal Heels</h3>
+                        <p class="product-category">Evening Shoes</p>
+                        <div class="product-price">BDT 6500</div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in" data-category="gowns">
+                    <div class="product-image" style="background-image: url('Image/Chiffon\ A-Line\ Gown.webp')">
+                        <div class="product-badge sale">Sale</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Chiffon A-Line Gown</h3>
+                        <p class="product-category">Evening Gowns</p>
+                        <div class="product-price">BDT 15000 <span class="original-price">BDT 18000</span></div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in" data-category="accessories">
+                    <div class="product-image" style="background-image: url('Image/Beaded\ Evening\ Clutch.jpg')">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Beaded Evening Clutch</h3>
+                        <p class="product-category">Evening Accessories</p>
+                        <div class="product-price">BDT 5500</div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Schluet</h3>
+                    <p>Elevating style and embracing every story. Your premier destination for elegant fashion.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="home.html">Home</a>
+                    <a href="collections_page.html">Collections</a>
+                    <a href="discount_corner.html">Brands</a>
+                    <a href="#about">About Us</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Customer Care</h3>
+                    <a href="#">Size Guide</a>
+                    <a href="#">Shipping Info</a>
+                    <a href="#">Returns</a>
+                    <a href="#">Contact Us</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <a href="#">Instagram</a>
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Pinterest</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Schluet. All rights reserved. | <a href="#" style="color: #888;">Privacy Policy</a> | <a href="#" style="color: #888;">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function filterProducts(category) {
+            const products = document.querySelectorAll('.product-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Remove active class from all buttons
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Filter products
+            products.forEach(product => {
+                if (category === 'all' || product.dataset.category === category) {
+                    product.style.display = 'block';
+                    product.style.animation = 'fadeInUp 0.6s ease forwards';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0.1s';
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements that should fade in
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(227, 242, 253, 0.98)';
+            } else {
+                header.style.background = 'rgba(227, 242, 253, 0.95)';
+            }
+        });
+
+        // Add to cart functionality
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                this.textContent = 'Added!';
+                this.style.background = 'var(--winter-accent)';
+                this.style.color = 'var(--white)';
+                
+                setTimeout(() => {
+                    this.textContent = 'Add to Cart';
+                    this.style.background = '';
+                    this.style.color = '';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
